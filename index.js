@@ -31,8 +31,8 @@ app.get("/api/:date", function (req, res) {
   const userDate =
     date.length > 10 ? new Date(parseInt(date, 10)) : new Date(date);
 
-  if (isNaN(userDate)) {
-    return res.status(404).json({ error: "Invalid Date" });
+  if (userDate.toString() === "Invalid Date") {
+    return res.status(400).json({ error: "Invalid Date" });
   }
 
   res
