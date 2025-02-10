@@ -20,7 +20,10 @@ app.get("/", function (req, res) {
 
 // your first API endpoint...
 app.get("/api/:date", function (req, res) {
-  const userDate = new Date(req.params.date);
+  const userDate =
+    req.params.date.length > 10
+      ? new Date(+req.params.date * 1000)
+      : new Date(req.params.date);
 
   res
     .status(200)
