@@ -28,8 +28,11 @@ app.get("/api", function (req, res) {
 app.get("/api/:date", function (req, res) {
   const { date } = req.params;
 
-  const userDate =
-    date.length > 10 ? new Date(parseInt(date, 10)) : new Date(date);
+  const unixTimestampRegex = /^\d{13}$/;
+
+  const userDate = unixTimestampRegex.test(date)
+    ? new Date(parseInt(date, 10))
+    : new Date(date);
 
   if (userDate.toString() === "Invalid Date") {
     return res.status(400).json({ error: "Invalid Date" });
